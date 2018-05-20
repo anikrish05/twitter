@@ -1,0 +1,29 @@
+<html>
+<body>
+<h1>Welcome Admin</h1>
+<h2>The list of profiles are below</h2>
+<table>
+	<tr>
+	<th> First Name </th>
+	<th> Last Name </th>
+	<th> Age </th>
+	<th> email </th>
+	<th> user Name </th>
+	<th> Password </th>
+</tr>
+{% for profile in allprofiles['profiles'] %}
+
+  <tr>
+    <td> {{profile['name']}}</td>
+    <td> {{profile['lname']}}</td>
+    <td> {{profile['age']}}</td>
+    <td> {{profile['mail']}}</td>
+    <td> {{profile['cusername']}}
+    <td> {{profile['cpassword']}}<button>Delete</button></td>
+
+
+  </tr>
+{% endfor %}
+</table>
+</body>
+</html>
