@@ -1,0 +1,90 @@
+<html>
+<style >
+	/* Style the tab */
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+</style>
+<body>
+	<div class="tweet">
+		<h1>Tweet page</h1>	
+		<form enctype ='application/json' action="http://localhost:5000/tweet" method="post">
+
+		<textarea type="text" id="tweetwords" name="tweettext">
+		</textarea>
+
+		<button>Tweet</button>
+
+		</form>
+	</div>
+
+
+<div class="tab">
+  <button class="tablinks" onclick="window.location.href='http://localhost:5000/feeds'">Feeds</button>
+  <button class="tablinks" onclick="window.location.href='http://localhost:5000/follow'">Follow</button>
+</div>
+
+<!-- Tab content -->
+<div id="Feeds" class="tabcontent">
+  <h3>Feeds</h3>
+  <p>display Feeds here</p>
+</div>
+
+<div id="Follow" class="tabcontent">
+  <h3>Follow</h3>
+  <table>
+	<tr>
+	<th> First Name </th>
+	<th> Last Name </th>
+	<th> Age </th>
+	<th> email </th>
+	<th> user Name </th>
+	<th> Password </th>
+</tr>
+{% for profile in allprofiles['profiles'] %}
+
+  <tr>
+    <td> {{profile['name']}}</td>
+    <td> {{profile['lname']}}</td>
+    <td> <button> Follow </button></td>	
+  </tr>
+{% endfor %}
+</table>
+</div>
+
+
+</body>
+
+</html>

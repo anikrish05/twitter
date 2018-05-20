@@ -1,4 +1,5 @@
-from flask import Flask, flash,render_template,redirect,url_for
+from flask import Flask, session,flash,render_template,redirect,url_for
+from datetime import datetime
 import time
 from flask import request
 import json
@@ -79,14 +80,16 @@ def login():
 		varpassword=request.form['epassword']
 		profiles = json.load(open('profiles.json'))
 
-		print(profiles['profiles'])
+		#print(profiles['profiles'])
 
 		for profile in profiles['profiles']:
 			#print(profile)
 			if varusername== "Admin" and varpassword==  'Stanky123':
 				return redirect(url_for('show_all'))
 			elif profile['cusername'] == varusername and profile['cpassword'] == varpassword:
-				return redirect(url_for('tweet',foruser=varusername))
+				session['username'] = varusername
+				ctable = json.load(open('profiles.json'))
+				return render_template('Tweethome.html',allprofiles=ctable)
 		return "Wrong password"	
 
 @app.route("/show_all")
@@ -111,9 +114,21 @@ def tweet():
 		#print(vartweet)
 		tweets = json.load(open('tweets.json'))
 		rjson = request.form.to_dict();
-		rjson['username'] = "Renga"
-		rjson['time'] ="05/10/2018:10:15"
+		rjson['username'] = session['username']
+		rjson['time'] =datetime.now().strftime('%m/%d/%Y:%H:%M')
 		tweets['tweets'].append(rjson)
 		with open('tweets.json','w') as outfile:
 			json.dump(tweets,outfile)
-		return("")
+		return redirect(url_for('tweethome'))
+
+@app.route("/tweethome", methods=['GET'])
+def tweethome():
+	return render_template('tweethome.html')
+
+@app.route("/feeds", methods=['GET'])
+def feeds():
+	return render_template('Feeds.html')
+
+@app.route("/follow",methods=['GET','POST'])
+def follow():
+	return render_template('Follow.html')
