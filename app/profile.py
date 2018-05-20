@@ -26,9 +26,8 @@ def getprofile():
 @app.route("/profile", methods=['GET','POST','Delete'])
 
 def profile():
-#	flash("Renga and Anirudh")
 	if request.method == 'POST':
-		print request.form.to_dict(flat=False)
+		print(request.form.to_dict(flat=False))
 
 		profiles = json.load(open('profiles.json'))
 		for profile in profiles['profiles']:
@@ -80,7 +79,7 @@ def login():
 		varpassword=request.form['epassword']
 		profiles = json.load(open('profiles.json'))
 
-		print profiles['profiles']
+		print(profiles['profiles'])
 
 		for profile in profiles['profiles']:
 			#print(profile)
