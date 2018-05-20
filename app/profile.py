@@ -100,7 +100,7 @@ def show_all():
 @app.route("/tweet", methods=['GET','POST'])
 def tweet():
 
-# This is Renga's comment
+
 	if request.method == 'GET':
 		return render_template('tweet.html')
 	elif request.method == 'POST':
