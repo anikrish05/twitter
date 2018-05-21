@@ -1,5 +1,32 @@
 <html>
+<style >
+	
+	.card {
+    background:#FFF;
+    border:1px solid #AAA;
+    border-bottom:3px solid #BBB;
+    padding:0px;
+    margin:15px;
+    overflow:hidden;
+    background-color: : blue
+}
+</style>
 <body>
 <h1> Feeds </h1>
+<div id="Follow" class="tabcontent">
+  <h3>Feeds</h3>
+  <div >
+{% for tweet in tweets['tweets'] %}
+<div class="card">
+  
+    <h3> {{tweet['tweettext']}}</h3>
+    <h4> {{tweet['username']}}</h4>
+    <h4> {{tweet['time']}}</h4>
+    
+  
+</div>
+{% endfor %}
+</div>
+</div>
 </body>
 </html>

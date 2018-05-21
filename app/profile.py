@@ -127,7 +127,8 @@ def tweethome():
 
 @app.route("/feeds", methods=['GET'])
 def feeds():
-	return render_template('Feeds.html')
+	tweetsfile = json.load(open('tweets.json'))
+	return render_template('Feeds.html',tweets=tweetsfile)
 
 @app.route("/follow",methods=['GET','POST'])
 def follow():
