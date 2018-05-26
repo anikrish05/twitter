@@ -187,4 +187,7 @@ def feeds():
 
 @app.route("/follow",methods=['GET','POST'])
 def follow():
-	return render_template('Follow.html')
+	profiledb = mongo.db.profiles
+	profileall = list(profiledb.find())
+	print(profileall)
+	return render_template('Follow.html',users=profileall)
