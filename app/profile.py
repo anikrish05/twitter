@@ -177,7 +177,7 @@ def tweet():
 
 @app.route("/tweethome", methods=['GET'])
 def tweethome():
-	return render_template('tweethome.html')
+	return render_template('Tweethome.html')
 
 @app.route("/feeds", methods=['GET'])
 def feeds():
