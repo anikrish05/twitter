@@ -1,0 +1,28 @@
+<html>
+<body>
+<h1> Follow </h1>
+<p> {{users}} </p>
+<table>
+	<tr>
+	<th> First Name </th>
+	<th> Last Name </th>
+	<th> Age </th>
+	<th> email </th>
+	<th> user Name </th>
+	<th> Password </th>
+</tr>
+{% for user in users %}
+
+  <form enctype ='application/json' action="http://localhost:5000/Follow" method="post">
+  <tr>
+    <td> {{user['name']}}</td>
+    <td> {{user['lname']}}</td>
+    <button> Follow </button>
+ 
+
+  </tr>
+</form>
+{% endfor %}
+</table>
+</body>
+</html>
