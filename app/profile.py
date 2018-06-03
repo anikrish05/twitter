@@ -188,6 +188,11 @@ def feeds():
 @app.route("/follow",methods=['GET','POST'])
 def follow():
 	profiledb = mongo.db.profiles
-	profileall = list(profiledb.find())
-	print(profileall)
-	return render_template('Follow.html',users=profileall)
+	if request.method == 'GET':
+		profileall = list(profiledb.find())
+		print(profileall)
+		return render_template('Follow.html',users=profileall)
+	elif request.method == 'POST':
+		print(request.form.to_dict())
+		rjson = {}
+	#	rjson['']
