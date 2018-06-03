@@ -25,17 +25,6 @@ def getprofile():
 		return "Sorry Invalid User"
 
 
-	#print("*****************"+request.args['foruser'])
-
-	#profiles = json.load(open('profiles.json'))
-	#for profile in profiles['profiles']:
-	#	if profile['cusername'] == givenusername:
-	#		return render_template('profileview.html',profile=profile)
-	#return "Sorry not a valid user"
-	#	data = json.load(json_filse	
-	#	return json.dumps(data)
-
-
 @app.route("/profile", methods=['GET','POST','Delete'])
 
 def profile():
@@ -49,15 +38,6 @@ def profile():
 		if userc.count() <> 0:
 			print(">>>>>>>>> This User already exists")
 			return("User name exists. invalid user name")
-
-		#profiles = json.load(open('profiles.json'))
-		#for profile in profiles['profiles']:
-		#	if profile['cusername']==request.form['cusername']:
-		#		return("User name exists. invalid user name")
-		
-
-
-		#profiles['profiles'].append(request.form.to_dict())
 		
 		input = request.form.to_dict()
 		print(input)
@@ -65,9 +45,6 @@ def profile():
 
 		profilesc = profiledb.find({},{'_id':0,'name':1,'age':1,'lname':1,'mail':1,'cusername':1,'cpassword':1})
 		print(json_util.dumps(profilesc, sort_keys=True, indent=4, default=json_util.default))
-
-		#with open('profiles.json','w') as outfile:
-		#	json.dump(profiles,outfile)
 		return redirect(url_for('getprofile',foruser=request.form['cusername']))
 	elif request.method == 'GET':
 		return render_template('profile.html')
@@ -80,13 +57,6 @@ def profile():
 		else:
 			print("User is not a valid one")
 		profiledb.deletemany({'cusername':givenusername})
-
-		#profiles = json.load(open('profiles.json'))
-		#for profile in profiles['profiles']:
-		#	profiles['profiles'].append(request.form.to_dict())
-		#	with open('profiles.json','w') as outfile:
-		#		json.dump(profiles,outfile)
-
 
 
 
@@ -128,19 +98,7 @@ def login():
 
 		else:
 			return "Wrong user name or password"
-		#profiles = json.load(open('profiles.json'))
 
-		#print(profiles['profiles'])
-
-		#for profile in profiles['profiles']:
-			#print(profile)
-		#	if varusername== "Admin" and varpassword==  'Stanky123':
-		#		return redirect(url_for('show_all'))
-		#	elif profile['cusername'] == varusername and profile['cpassword'] == varpassword:
-		#		session['username'] = varusername
-		#		ctable = json.load(open('profiles.json'))
-		#		return render_template('Tweethome.html',allprofiles=ctable)
-		#return "Wrong password"	
 
 @app.route("/show_all")
 def show_all():
@@ -161,18 +119,11 @@ def tweet():
 	if request.method == 'GET':
 		return render_template('tweet.html')
 	elif request.method == 'POST':
-		#username = request.args['foruser']
-		#print("Renga Kannan")
-		#print(request.form.to_dict())
-		#vartweet=request.form['tweettext']
-		#print(vartweet)
-	#	tweets = json.load(open('tweets.json'))
+
 		rjson = request.form.to_dict();
 		rjson['username'] = session['username']
 		rjson['time'] =datetime.now().strftime('%m/%d/%Y:%H:%M')
 		tweetdb.insert(rjson)
-#		with open('tweets.json','w') as outfile:
-#			json.dump(tweets,outfile)
 		return redirect(url_for('tweethome'))
 
 @app.route("/tweethome", methods=['GET'])
@@ -181,7 +132,7 @@ def tweethome():
 
 @app.route("/feeds", methods=['GET'])
 def feeds():
-	#tweetsfile = json.load(open('tweets.json'))
+
 	tweetsdb = mongo.db.tweets
 	tweetsc   = list(tweetsdb.find())
 	return render_template('Feeds.html',tweets=tweetsc)
@@ -196,4 +147,4 @@ def follow():
 	elif request.method == 'POST':
 		print(request.form.to_dict())
 		rjson = {}
-	#	rjson['']
+	
