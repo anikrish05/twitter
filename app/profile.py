@@ -118,6 +118,7 @@ def login():
 
 		profilec = profiledb.find({'cusername':varusername,'cpassword':varpassword})
 		if profilec.count() <> 0:
+			session['username'] = varusername
 			profileall = list(profiledb.find())
 			if varusername == 'Admin':
 				return redirect(url_for('show_all'))
