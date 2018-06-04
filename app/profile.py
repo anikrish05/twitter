@@ -34,22 +34,27 @@ def profile():
 		#print(request.form.to_dict(flat=False))
 		
 		userc = profiledb.find({'cusername':request.form['cusername']})
+		if request.form['mode'] == "Create" :
 		
-		if userc.count() <> 0:
-			print(">>>>>>>>> This User already exists")
-			return("User name exists. invalid user name")
+			if userc.count() <> 0:
+				print(">>>>>>>>> This User already exists")
+				return("User name exists. invalid user name")
 		
-		input = request.form.to_dict()
-		print(input)
-		profiledb.insert(input)
-
-		profilesc = profiledb.find({},{'_id':0,'name':1,'age':1,'lname':1,'mail':1,'cusername':1,'cpassword':1})
-		print(json_util.dumps(profilesc, sort_keys=True, indent=4, default=json_util.default))
-		return redirect(url_for('getprofile',foruser=request.form['cusername']))
+			input = request.form.to_dict()
+			print(input)
+			profiledb.insert(input)
+			return redirect(url_for('getprofile',foruser=request.form['cusername']))
+		elif request.form['mode'] == 'Delete':
+			if userc.count() == 0:
+				return ("User does not exist")
+			else :
+				print ("inside delete block	")
+				profiledb.remove({'cusername':request.form['cusername']})
+				return ("Done with delete")
 	elif request.method == 'GET':
 		return render_template('profile.html')
 
-	elif request.method == 'Delete':
+	elif request.method == 'DELETE':
 		givenusername = request.args['foruser']
 		userc = profiledb.find({'cusername':givenusername})
 		if userc.count() <> 0:
@@ -145,6 +150,21 @@ def follow():
 		print(profileall)
 		return render_template('Follow.html',users=profileall)
 	elif request.method == 'POST':
-		print(request.form.to_dict())
-		rjson = {}
+		print("Insite follow post")
+		followdb = mongo.db.followlist
+		user2follow  = request.form['fusername']
+		print("After form request pull")
+		followc = followdb.find({'cusername' : session['username']})
+		print (followc.count())
+		print(list(followc))
+		print(user2follow)
+		if followc.count() > 0:
+			print("inside update.....")
+			print(request.form.to_dict())
+			followdb.update({'cusername' : session['username']} , {"$push" : {'follows':user2follow}})
+		else :
+			fl = [user2follow]
+			followdb.insert({'cusername' : session['username'] , 'follows' : fl})
+			print("After inserting to mongo db......")
+		return "I am in follow"
 	

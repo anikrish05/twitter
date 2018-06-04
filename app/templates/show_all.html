@@ -13,16 +13,21 @@
 </tr>
 {% for profile in allprofiles %}
 
+  
   <tr>
     <td> {{profile['name']}}</td>
     <td> {{profile['lname']}}</td>
     <td> {{profile['age']}}</td>
     <td> {{profile['mail']}}</td>
-    <td> {{profile['cusername']}}
-    <td> {{profile['cpassword']}}<button>Delete</button></td>
-
-
+    <form action="http://localhost:5000/profile" method="post">
+    <td> 
+      <input type="hidden" name ="cusername" value={{profile['cusername']}}> {{profile['cusername']}}  
+      <input type="hidden" name="mode" value="Delete">
+    </td>
+    <td> {{profile['cpassword']}}<input type="submit" value = "Delete"></td>
+    </form>
   </tr>
+  </form>
 {% endfor %}
 </table>
 </body>

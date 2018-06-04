@@ -13,11 +13,12 @@
 </tr>
 {% for user in users %}
 
-  <form enctype ='application/json' action="http://localhost:5000/follow method="post">
+  <form enctype ='application/json' action="http://localhost:5000/follow" method="post">
   <tr>
-    <td> <input type ="text" name="cusername" value = {{user['name']}} > {{user['name']}} </td>
-    <td> <input type ="text" name="clastname" > {{user['lname']}}</td>
-    <td><button> Follow </button></td>
+    <td>  {{user['name']}} </td>
+    <td>  {{user['lname']}}</td>
+    <input type = "hidden" name = 'fusername' value = {{user['cusername']}}>
+    <td><input type = "submit"> Follow </td>
  
 
   </tr>
