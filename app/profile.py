@@ -54,14 +54,7 @@ def profile():
 	elif request.method == 'GET':
 		return render_template('profile.html')
 
-	elif request.method == 'DELETE':
-		givenusername = request.args['foruser']
-		userc = profiledb.find({'cusername':givenusername})
-		if userc.count() <> 0:
-			print("Found the user")
-		else:
-			print("User is not a valid one")
-		profiledb.deletemany({'cusername':givenusername})
+	
 
 
 
